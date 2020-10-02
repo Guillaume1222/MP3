@@ -56,7 +56,7 @@ line2, = ax.plot(x.get_lst(), y2.get_lst())
 def animate(i):
     temperature = ser.readline()
     if i > 17 and i % 2 == 0:
-        x.add(- x.get_max_lengh() + i)
+        x.add(- x.get_max_lengh() + (i-1))
         temperature = float(
                 temperature.decode("UTF-8").rstrip().split(": ")[1][0: -2]
                 )
@@ -80,7 +80,3 @@ ani = animation.FuncAnimation(
 plt.show()
 
 F=ListFile2()
-F.taille(10)
-F.ajout(y)
-F.retire(x)
-
