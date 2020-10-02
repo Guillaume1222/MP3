@@ -36,9 +36,16 @@ class ListFile2:
 
 #Pyserial
 ser = serial.Serial("COM7",baudrate =9600)
-i = 0
 
-while True:
+#Courbe
+fig, ax = plt.subplots()
+
+y = temperature
+x = (0, 50, 10)
+line, = ax.plot(x, y)
+
+
+def animate(i):
     temperature = ser.readline()
     print(i, temperature)
     if i > 17:
@@ -53,18 +60,6 @@ while True:
                     )
             print(temperature)
     i += 1
-
-
-#Courbe
-fig, ax = plt.subplots()
-
-y = temperature(0, 50, 1)
-x = (0, 50, 10)
-line, = ax.plot(x, y)
-
-
-def animate(j):
-    line.set_ydata(y(x + j / 50))  # update the data.
     return line
 
 
@@ -85,4 +80,6 @@ plt.show()
 
 F=ListFile2()
 F.taille(10)
+F.ajout(y)
+F.retire(x)
 
