@@ -1,14 +1,38 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Oct  2 10:57:32 2020
-
-@author: Elève
-"""
-
 import serial
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.animation as animation
+
+class ListFile2:
+
+    def __init__(self) -> None:
+        self.lst = []
+
+    def get_lst(self) -> list:
+        self.lst
+
+    def is_empty(self) -> None:
+        return bool(self.lst)
+
+    def ajout(self, val) -> None:
+        if not self.is_empty():
+            self.lst.append(val)
+
+    def retire(self):
+        return_val = None
+        if not self.is_empty():
+            return_val = self.lst.pop(1)
+        return return_val
+
+    def premier(self):
+        return_val = None
+        if not self.is_empty():
+            return_val = self.lst[0]
+        return return_val
+
+    def taille(self):
+        return len(self.lst)
+
 
 #Pyserial
 ser = serial.Serial("COM7",baudrate =9600)
@@ -34,13 +58,14 @@ while True:
 #Courbe
 fig, ax = plt.subplots()
 
-x = np.arange(0, 2*np.pi, 0.01)
-line, = ax.plot(x, np.sin(x))
+y = temperature(0, 50, 1)
+x = (0, 50, 10)
+line, = ax.plot(x, y)
 
 
-def animate(i):
-    line.set_ydata(np.sin(x + i / 50))  # update the data.
-    return line,
+def animate(j):
+    line.set_ydata(y(x + j / 50))  # update the data.
+    return line
 
 
 ani = animation.FuncAnimation(
@@ -57,3 +82,7 @@ ani = animation.FuncAnimation(
 # ani.save("movie.mp4", writer=writer)
 
 plt.show()
+
+F=ListFile2()
+F.taille(10)
+
